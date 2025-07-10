@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabBoard Mobile Menu Component - Example</title>
+    
+    <style>
+        /* TabBoard Color Scheme - Required for mobile menu component */
+        :root {
+            --primary-color: #60a5fa;        /* TabBoard's light blue */
+            --primary-dark: #2563eb;         /* TabBoard's blue */
+            --secondary-color: #8b5cf6;      /* TabBoard's purple */
+            --accent-color: #ec4899;         /* TabBoard's pink */
+            --text-dark: #1f2937;            /* TabBoard's text */
+            --text-light: #64748b;           /* TabBoard's muted text */
+            --light-gray: #f8fafc;           /* TabBoard's light secondary */
+            --border-color: #e2e8f0;         /* TabBoard's border */
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Basic page styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Header styles */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Hide regular nav on mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Main content styles */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .instructions {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .instructions h3 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .code-block {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <img src="../assets/tabboard-icon-48.png" alt="TabBoard Logo">
+                </div>
+                TabBoard
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../documentation.html">Documentation</a>
+                <a href="../support.html">Support</a>
+                <a href="../contact.html">Contact</a>
+            </div>
+            <!-- Mobile menu toggle will be automatically added here by the component -->
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-section">
+                <h1>TabBoard Mobile Menu <span class="highlight">Component</span></h1>
+                <p>This is a working example of the TabBoard mobile menu component. The mobile menu will automatically appear when you view this page on a mobile device or resize your browser window to mobile size.</p>
+                
+                <div class="instructions">
+                    <h3>🧪 How to Test the Mobile Menu:</h3>
+                    <ol>
+                        <li>Open your browser's Developer Tools (F12)</li>
+                        <li>Click the "Toggle Device Toolbar" button (or press Ctrl+Shift+M)</li>
+                        <li>Select a mobile device preset or resize to mobile width (≤768px)</li>
+                        <li>Look for the hamburger menu (☰) in the top navigation</li>
+                        <li>Click it to open the full-screen mobile menu</li>
+                        <li>Test closing it by clicking the X, clicking outside, or pressing Escape</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Implementation Details</h2>
+                <p>This example uses the <strong>all-in-one include script</strong> which is the easiest way to add the mobile menu to any page. Here's the complete implementation:</p>
+                
+                <div class="code-block">
+&lt;!-- Required CSS Variables --&gt;
+&lt;style&gt;
+    :root {
+        --primary-color: #60a5fa;
+        --primary-dark: #2563eb;
+        --secondary-color: #8b5cf6;
+        --accent-color: #ec4899;
+        --text-dark: #1f2937;
+        --text-light: #64748b;
+        --light-gray: #f8fafc;
+        --border-color: #e2e8f0;
+    }
+&lt;/style&gt;
+
+&lt;!-- Navigation with logo --&gt;
+&lt;nav&gt;
+    &lt;a href="#" class="logo"&gt;
+        &lt;div class="logo-icon"&gt;
+            &lt;img src="assets/tabboard-icon-48.png" alt="TabBoard Logo"&gt;
+        &lt;/div&gt;
+        TabBoard
+    &lt;/a&gt;
+    &lt;!-- Mobile menu toggle will be automatically added here --&gt;
+&lt;/nav&gt;
+
+&lt;!-- Include the mobile menu component --&gt;
+&lt;script src="components/mobile-menu-include.js"&gt;&lt;/script&gt;
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Features Demonstrated</h2>
+                <p>This working example demonstrates all the key features of the TabBoard mobile menu:</p>
+                <ul style="margin-left: 20px; color: var(--text-light);">
+                    <li>✅ <strong>Full-width mobile menu</strong> with pink accent border</li>
+                    <li>✅ <strong>Smooth slide-in animation</strong> from the right</li>
+                    <li>✅ <strong>Touch-friendly interactions</strong> with proper event handling</li>
+                    <li>✅ <strong>Backdrop overlay</strong> for easy closing</li>
+                    <li>✅ <strong>Keyboard navigation</strong> (Escape key to close)</li>
+                    <li>✅ <strong>Auto-close on link click</strong> for seamless navigation</li>
+                    <li>✅ <strong>Responsive design</strong> that only appears on mobile devices</li>
+                    <li>✅ <strong>Exact TabBoard styling</strong> with proper colors and typography</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Component Files</h2>
+                <p>The mobile menu component consists of these files:</p>
+                <ul style="margin-left: 20px; color: var(--text-light);">
+                    <li><strong>mobile-menu-include.js</strong> - All-in-one include script (recommended)</li>
+                    <li><strong>mobile-menu.css</strong> - Mobile menu styles</li>
+                    <li><strong>mobile-menu.js</strong> - Mobile menu functionality</li>
+                    <li><strong>mobile-menu.html</strong> - Mobile menu HTML template</li>
+                    <li><strong>README.md</strong> - Complete documentation</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include the mobile menu component - this automatically adds the mobile menu to any page -->
+    <script src="mobile-menu-include.js"></script>
+</body>
+</html> 
