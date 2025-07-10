@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - TabBoard</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/tabboard-icon-16.png">
+    <link rel="shortcut icon" href="assets/tabboard-icon-16.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #60a5fa;
+            --primary-dark: #2563eb;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --text-dark: #1f2937;
+            --text-light: #64748b;
+            --light-gray: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-gray);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .logo-icon img {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Support Content */
+        .support-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .support-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .support-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .support-content {
+            padding: 80px 0;
+        }
+        
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .support-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .support-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .support-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .support-card .btn {
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .support-card .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .faq-section {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .faq-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .faq-question::before {
+            content: "❓";
+            font-size: 1.5rem;
+        }
+        
+        .faq-answer {
+            color: var(--text-light);
+            line-height: 1.7;
+            padding-left: 45px;
+        }
+        
+        .faq-answer ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .faq-answer li {
+            margin-bottom: 8px;
+        }
+        
+        .contact-cta {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .contact-cta h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .contact-cta p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .contact-cta .btn {
+            background: white;
+            color: var(--accent-color);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-cta .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .support-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-section {
+                padding: 30px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="assets/tabboard-icon-48.png" alt="TabBoard Logo">
+                </div>
+                TabBoard
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="support.html">Support</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="support-hero">
+        <div class="container">
+            <h1>Get Help & Support</h1>
+            <p>Find answers to common questions and get the help you need with TabBoard</p>
+        </div>
+    </section>
+
+    <section class="support-content">
+        <div class="container">
+            <div class="support-options">
+                <div class="support-card">
+                    <h3>📚 Documentation</h3>
+                    <p>Complete guides and tutorials to help you master TabBoard's features.</p>
+                    <a href="documentation.html" class="btn">View Documentation</a>
+                </div>
+                
+                <div class="support-card">
+                    <h3>💬 Contact Support</h3>
+                    <p>Get direct help from our support team for technical issues or questions.</p>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+                
+                <div class="support-card">
+                    <h3>🚀 Feature Requests</h3>
+                    <p>Have an idea for a new feature? Let us know what you'd like to see in TabBoard.</p>
+                    <a href="feature-requests.html" class="btn">Submit Request</a>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I install TabBoard?</div>
+                    <div class="faq-answer">
+                        <p>TabBoard is available as a Chrome extension. Here's how to install it:</p>
+                        <ul>
+                            <li>Visit the Chrome Web Store and search for "TabBoard"</li>
+                            <li>Click "Add to Chrome" and confirm the installation</li>
+                            <li>Pin the extension to your toolbar for easy access</li>
+                            <li>Grant necessary permissions when prompted</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my data safe and private?</div>
+                    <div class="faq-answer">
+                        <p>Yes, absolutely! TabBoard is designed with privacy as a core principle:</p>
+                        <ul>
+                            <li>All data stays completely local on your device</li>
+                            <li>No external servers or cloud storage</li>
+                            <li>No tracking, analytics, or data collection</li>
+                            <li>Your browsing sessions remain private and secure</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How many tabs can I save in a session?</div>
+                    <div class="faq-answer">
+                        <p>There's no hard limit on the number of tabs you can save in a session. However, for optimal performance:</p>
+                        <ul>
+                            <li>Sessions with 50-100 tabs work smoothly</li>
+                            <li>Very large sessions (200+ tabs) may take longer to restore</li>
+                            <li>Consider breaking large projects into smaller, focused sessions</li>
+                            <li>Regular cleanup of old sessions helps maintain performance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use TabBoard on multiple devices?</div>
+                    <div class="faq-answer">
+                        <p>Yes! TabBoard includes import/export functionality for cross-device sync:</p>
+                        <ul>
+                            <li>Export your sessions as JSON files</li>
+                            <li>Transfer files to other devices via cloud storage or email</li>
+                            <li>Import sessions on your other devices</li>
+                            <li>Data merges safely without overwriting existing sessions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens when I restore a session?</div>
+                    <div class="faq-answer">
+                        <p>When you restore a session, TabBoard:</p>
+                        <ul>
+                            <li>Opens all saved tabs in a new Chrome window</li>
+                            <li>Maintains the original order of tabs</li>
+                            <li>Preserves tab titles and URLs</li>
+                            <li>Shows a visual animation during restoration</li>
+                            <li>Keeps your current tabs untouched</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I update an existing session?</div>
+                    <div class="faq-answer">
+                        <p>To update a session with new tabs:</p>
+                        <ul>
+                            <li>Open the session you want to update</li>
+                            <li>Add or remove tabs as needed</li>
+                            <li>Click "Update" next to the session name in TabBoard</li>
+                            <li>The session will be refreshed with current tabs</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I customize the keyboard shortcut?</div>
+                    <div class="faq-answer">
+                        <p>Yes! You can customize TabBoard's keyboard shortcut:</p>
+                        <ul>
+                            <li>Go to Chrome's Extensions page (chrome://extensions/)</li>
+                            <li>Click the menu icon (three lines) in the top-left</li>
+                            <li>Select "Keyboard shortcuts"</li>
+                            <li>Find TabBoard and set your preferred shortcut</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Why aren't my sessions saving?</div>
+                    <div class="faq-answer">
+                        <p>If sessions aren't saving, try these troubleshooting steps:</p>
+                        <ul>
+                            <li>Make sure you're not in Chrome's incognito mode</li>
+                            <li>Check that TabBoard has permission to access tabs</li>
+                            <li>Verify you have sufficient storage space</li>
+                            <li>Try refreshing the extension in Chrome's extensions page</li>
+                            <li>Restart Chrome and try again</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I back up my sessions?</div>
+                    <div class="faq-answer">
+                        <p>TabBoard makes it easy to back up your sessions:</p>
+                        <ul>
+                            <li>Click the "Export" button in the TabBoard popup</li>
+                            <li>Choose a location to save the JSON file</li>
+                            <li>Store the file in your preferred cloud storage</li>
+                            <li>Use the "Import" button to restore from backup</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is TabBoard free to use?</div>
+                    <div class="faq-answer">
+                        <p>Yes! TabBoard is completely free to use with no subscriptions or hidden costs:</p>
+                        <ul>
+                            <li>All features are available at no cost</li>
+                            <li>No premium tiers or paid upgrades</li>
+                            <li>No advertisements or sponsored content</li>
+                            <li>Built for the community by tab management enthusiasts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-cta">
+                <h3>Still Need Help?</h3>
+                <p>Can't find the answer you're looking for? Our support team is here to help!</p>
+                <a href="contact.html" class="btn">Contact Support</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 

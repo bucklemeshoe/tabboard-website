@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - TabBoard</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/tabboard-icon-16.png">
+    <link rel="shortcut icon" href="assets/tabboard-icon-16.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #60a5fa;
+            --primary-dark: #2563eb;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --text-dark: #1f2937;
+            --text-light: #64748b;
+            --light-gray: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .logo-icon img {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Documentation Content */
+        .doc-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .doc-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .doc-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .doc-content {
+            padding: 80px 0;
+        }
+        
+        .doc-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+        }
+        
+        .doc-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .doc-nav {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .doc-nav h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .doc-nav ul {
+            list-style: none;
+        }
+        
+        .doc-nav li {
+            margin-bottom: 12px;
+        }
+        
+        .doc-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .doc-nav a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .doc-main {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .doc-section {
+            margin-bottom: 50px;
+        }
+        
+        .doc-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .doc-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            margin-top: 30px;
+        }
+        
+        .doc-section p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .doc-section ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .doc-section li {
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+        
+        .code-block {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .step-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .step-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning-box h4 {
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .doc-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .doc-sidebar {
+                position: static;
+            }
+            
+            .doc-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="assets/tabboard-icon-48.png" alt="TabBoard Logo">
+                </div>
+                TabBoard
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="support.html">Support</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="doc-hero">
+        <div class="container">
+            <h1>Documentation</h1>
+            <p>Complete guide to using TabBoard - Advanced Tab Session Manager</p>
+        </div>
+    </section>
+
+    <section class="doc-content">
+        <div class="container">
+            <div class="doc-grid">
+                <div class="doc-sidebar">
+                    <div class="doc-nav">
+                        <h3>Quick Navigation</h3>
+                        <ul>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#getting-started">Getting Started</a></li>
+                            <li><a href="#features">Core Features</a></li>
+                            <li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+                            <li><a href="#import-export">Import/Export</a></li>
+                            <li><a href="#troubleshooting">Troubleshooting</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="doc-main">
+                    <div class="doc-section" id="installation">
+                        <h2>Installation</h2>
+                        <p>TabBoard is available as a Chrome extension. Here's how to install it:</p>
+                        
+                        <div class="step-box">
+                            <h4>Step 1: Download from Chrome Web Store</h4>
+                            <p>Visit the <a href="https://chrome.google.com/webstore/detail/tabboard/">Chrome Web Store</a> and click "Add to Chrome".</p>
+                        </div>
+                        
+                        <div class="step-box">
+                            <h4>Step 2: Pin to Toolbar</h4>
+                            <p>Click the extensions icon in your Chrome toolbar and pin TabBoard for easy access.</p>
+                        </div>
+                        
+                        <div class="step-box">
+                            <h4>Step 3: Grant Permissions</h4>
+                            <p>TabBoard needs permission to access your tabs. This data stays completely local on your device.</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-section" id="getting-started">
+                        <h2>Getting Started</h2>
+                        <p>Once installed, TabBoard is ready to transform your browsing workflow:</p>
+                        
+                        <h3>Set Your Board Name</h3>
+                        <p>First, give your workspace a name. This helps organize different projects or contexts.</p>
+                        
+                        <h3>Save Your First Session</h3>
+                        <p>Click "Save Session" to capture all your current tabs. Give it a descriptive name like "Research Project" or "Work Tasks".</p>
+                        
+                        <h3>Restore Sessions</h3>
+                        <p>Click "Restore" on any saved session to open all tabs in a new window instantly.</p>
+                    </div>
+
+                    <div class="doc-section" id="features">
+                        <h2>Core Features</h2>
+                        
+                        <h3>Smart Session Saving</h3>
+                        <ul>
+                            <li>Capture all open tabs with one click</li>
+                            <li>Automatically saves tab titles and URLs</li>
+                            <li>Includes favicon information</li>
+                            <li>Timestamps each session</li>
+                        </ul>
+                        
+                        <h3>Lightning-Fast Restoration</h3>
+                        <ul>
+                            <li>Restore entire sessions in milliseconds</li>
+                            <li>Opens tabs in new windows</li>
+                            <li>Maintains tab order</li>
+                            <li>Visual feedback during restoration</li>
+                        </ul>
+                        
+                        <h3>Advanced Organization</h3>
+                        <ul>
+                            <li>Custom board names for different contexts</li>
+                            <li>Chronological sorting (newest first)</li>
+                            <li>Project overview with tab counts</li>
+                            <li>Quick project updates</li>
+                        </ul>
+                        
+                        <h3>Project Management</h3>
+                        <ul>
+                            <li>Update existing projects with current tabs</li>
+                            <li>Delete projects with confirmation</li>
+                            <li>View detailed tab lists</li>
+                            <li>Track last modified dates</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-section" id="keyboard-shortcuts">
+                        <h2>Keyboard Shortcuts</h2>
+                        
+                        <div class="code-block">
+                            <strong>Alt + Shift + Z</strong> - Open TabBoard popup
+                        </div>
+                        
+                        <div class="warning-box">
+                            <h4>Note</h4>
+                            <p>You can customize this shortcut in Chrome's extensions settings under "Keyboard shortcuts".</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-section" id="import-export">
+                        <h2>Import/Export</h2>
+                        
+                        <h3>Export Your Data</h3>
+                        <p>Back up your sessions or transfer them to another device:</p>
+                        <ul>
+                            <li>Click "Export" in the TabBoard popup</li>
+                            <li>Choose a location to save your JSON file</li>
+                            <li>Your data is exported as a readable JSON format</li>
+                        </ul>
+                        
+                        <h3>Import Sessions</h3>
+                        <p>Load sessions from a backup or another device:</p>
+                        <ul>
+                            <li>Click "Import" in the TabBoard popup</li>
+                            <li>Select your JSON file</li>
+                            <li>Sessions are safely merged with existing data</li>
+                        </ul>
+                        
+                        <div class="warning-box">
+                            <h4>Data Safety</h4>
+                            <p>Importing doesn't overwrite existing sessions. Your data is always preserved.</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-section" id="troubleshooting">
+                        <h2>Troubleshooting</h2>
+                        
+                        <h3>Extension Not Working</h3>
+                        <ul>
+                            <li>Refresh the extension in Chrome's extensions page</li>
+                            <li>Make sure TabBoard has permission to access tabs</li>
+                            <li>Try restarting Chrome</li>
+                        </ul>
+                        
+                        <h3>Sessions Not Saving</h3>
+                        <ul>
+                            <li>Check if you have storage space available</li>
+                            <li>Ensure Chrome isn't in incognito mode</li>
+                            <li>Try clearing and re-saving the session</li>
+                        </ul>
+                        
+                        <h3>Import/Export Issues</h3>
+                        <ul>
+                            <li>Make sure your JSON file is valid TabBoard format</li>
+                            <li>Check file permissions</li>
+                            <li>Try exporting a test session first</li>
+                        </ul>
+                        
+                        <h3>Performance Issues</h3>
+                        <ul>
+                            <li>Large sessions (100+ tabs) may take longer to restore</li>
+                            <li>Consider breaking large projects into smaller sessions</li>
+                            <li>Regular cleanup of old sessions helps performance</li>
+                        </ul>
+                        
+                        <div class="step-box">
+                            <h4>Still Need Help?</h4>
+                            <p>Visit our <a href="support.html">Support page</a> for more help or <a href="contact.html">contact us</a> directly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 
