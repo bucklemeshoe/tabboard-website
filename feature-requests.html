@@ -166,6 +166,12 @@
             flex-shrink: 0;
         }
         
+        .guideline-icon svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+        
         .guideline-content h3 {
             font-size: 1.1rem;
             font-weight: 600;
@@ -258,6 +264,15 @@
             border-radius: 8px;
             color: var(--text-dark);
             font-size: 14px;
+        }
+        
+        .inline-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 4px;
+            color: #f59e0b;
         }
         
         .popular-requests {
@@ -365,7 +380,11 @@
                     <h2>Guidelines for Great Ideas</h2>
                     <div class="feature-guidelines">
                         <div class="guideline">
-                            <div class="guideline-icon">💡</div>
+                            <div class="guideline-icon">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
                             <div class="guideline-content">
                                 <h3>Be Specific</h3>
                                 <p>Clearly describe what you want and how it would work</p>
@@ -373,7 +392,12 @@
                         </div>
                         
                         <div class="guideline">
-                            <div class="guideline-icon">🎯</div>
+                            <div class="guideline-icon">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                            </div>
                             <div class="guideline-content">
                                 <h3>Explain the Problem</h3>
                                 <p>Tell us what current issue this feature would solve</p>
@@ -381,7 +405,11 @@
                         </div>
                         
                         <div class="guideline">
-                            <div class="guideline-icon">📱</div>
+                            <div class="guideline-icon">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                                </svg>
+                            </div>
                             <div class="guideline-content">
                                 <h3>Consider Usability</h3>
                                 <p>Think about how it fits into TabBoard's simple interface</p>
@@ -389,7 +417,11 @@
                         </div>
                         
                         <div class="guideline">
-                            <div class="guideline-icon">🔍</div>
+                            <div class="guideline-icon">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
                             <div class="guideline-content">
                                 <h3>Check Existing Features</h3>
                                 <p>Make sure it's not already available in the current version</p>
@@ -397,7 +429,11 @@
                         </div>
                         
                         <div class="guideline">
-                            <div class="guideline-icon">🚀</div>
+                            <div class="guideline-icon">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                                </svg>
+                            </div>
                             <div class="guideline-content">
                                 <h3>Priority & Impact</h3>
                                 <p>Explain how this would improve your workflow</p>
@@ -453,7 +489,12 @@
                         <button type="submit" class="form-submit">Submit Feature Request</button>
                         
                         <div class="form-note">
-                            <strong>💡 Tip:</strong> The more detail you provide, the better we can understand and implement your idea. We review all submissions and will update you on the status of promising features.
+                            <strong>
+                                <svg class="inline-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Tip:
+                            </strong> The more detail you provide, the better we can understand and implement your idea. We review all submissions and will update you on the status of promising features.
                         </div>
                     </form>
                 </div>
