@@ -1,0 +1,55 @@
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Build outputs
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Chrome extension files (keep website separate)
+background.js
+popup.html
+popup.js
+popup.css
+manifest.json
+saveprompt.html
+saveprompt.js
+icons/
+assets/orange_bg.png
+assets/restoreAnimation.gif
+
+# Zip files
+*.zip 

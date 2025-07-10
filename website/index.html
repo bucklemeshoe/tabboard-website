@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabBoard - Advanced Tab Session Manager for Chrome</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/tabboard-icon-16.png">
+    <link rel="shortcut icon" href="assets/tabboard-icon-16.png">
+    
+    <meta name="description" content="Transform your browsing workflow with TabBoard. Save, restore & organize browser sessions. Advanced tab management with import/export & board organization.">
+    <meta name="keywords" content="chrome extension, tab manager, session manager, productivity, browser organization, tab restoration">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TabBoard - Advanced Tab Session Manager">
+    <meta property="og:description" content="Save, restore & organize browser sessions. Advanced tab management with import/export & board organization.">
+    <meta property="og:url" content="https://yourdomain.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* TabBoard's Color Scheme */
+            --primary-color: #60a5fa;        /* TabBoard's light blue */
+            --primary-dark: #2563eb;         /* TabBoard's blue */
+            --secondary-color: #8b5cf6;      /* TabBoard's purple */
+            --accent-color: #ec4899;         /* TabBoard's pink */
+            --success-color: #10b981;        /* TabBoard's green */
+            --warning-color: #f59e0b;        /* TabBoard's amber */
+            --danger-color: #ef4444;         /* TabBoard's red */
+            --dark-bg: #0f172a;             /* TabBoard's dark primary */
+            --dark-secondary: #1e293b;       /* TabBoard's dark secondary */
+            --dark-tertiary: #334155;        /* TabBoard's dark tertiary */
+            --light-gray: #f8fafc;           /* TabBoard's light secondary */
+            --medium-gray: #64748b;          /* TabBoard's medium gray */
+            --text-dark: #1f2937;            /* TabBoard's text */
+            --text-light: #64748b;           /* TabBoard's muted text */
+            --border-color: #e2e8f0;         /* TabBoard's border */
+            --gradient-1: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);  /* Blue gradient */
+            --gradient-2: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);  /* Pink-Purple gradient */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        h1 {
+            font-weight: 800;
+        }
+        
+        h2 {
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-weight: 600;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            position: relative;
+            min-width: 40px;
+            min-height: 40px;
+            touch-action: manipulation;
+        }
+        
+        .mobile-menu-toggle:hover {
+            background: var(--light-gray);
+        }
+        
+        .mobile-menu-toggle:active {
+            transform: scale(0.95);
+            background: var(--border-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Hide hamburger menu when mobile menu is active */
+        body.mobile-menu-open .mobile-menu-toggle {
+            display: none !important;
+        }
+        
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-menu-header-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .mobile-menu-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .mobile-menu-close {
+            background: var(--light-gray);
+            border: none;
+            font-size: 18px;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 40px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            touch-action: manipulation;
+        }
+        
+        .mobile-menu-close:hover {
+            background: var(--border-color);
+            transform: scale(0.95);
+        }
+        
+        .mobile-menu-close:active {
+            transform: scale(0.95);
+            background: var(--border-color);
+        }
+        
+        .mobile-menu-content {
+            padding: 20px;
+        }
+        
+        .mobile-menu-section {
+            margin-bottom: 40px;
+        }
+        
+        .mobile-menu-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            border-bottom: 2px solid #efefef;
+            padding-bottom: 8px;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .mobile-menu-link {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .mobile-menu-link:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu-cta {
+            background: var(--primary-dark);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            display: block;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-cta:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .mobile-menu-tip {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 50%, #e53e3e 100%);
+            color: white !important;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-tip:link,
+        .mobile-menu-tip:visited,
+        .mobile-menu-tip:active {
+            color: white !important;
+        }
+        
+        .mobile-menu-tip:hover {
+            background: linear-gradient(135deg, #ff8a80 0%, #ff6b6b 50%, #ff5252 100%);
+            transform: translateY(-2px);
+            color: #fdf2f8 !important;
+        }
+        
+        .mobile-menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 30px 0;
+        }
+        
+        .mobile-menu-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .header-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .header-btn.btn-primary {
+            background: var(--primary-dark);
+            color: white;
+            border: 1px solid transparent;
+        }
+        
+        .header-btn.btn-primary:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        
+        .header-btn.btn-secondary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 50%, #e53e3e 100%);
+            color: white;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            font-weight: 600;
+        }
+        
+        .header-btn.btn-secondary:hover {
+            background: linear-gradient(135deg, #ff8a80 0%, #ff6b6b 50%, #ff5252 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #060b14 0%, #131825 20%, #1f2937 40%, #374151 60%, #6b7280 80%, #9ca3af 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="glow1" cx="50%" cy="50%"><stop offset="0%" style="stop-color:%2366d9ef;stop-opacity:0.15"/><stop offset="100%" style="stop-color:%2366d9ef;stop-opacity:0"/></radialGradient><radialGradient id="glow2" cx="50%" cy="50%"><stop offset="0%" style="stop-color:%238b5cf6;stop-opacity:0.12"/><stop offset="100%" style="stop-color:%238b5cf6;stop-opacity:0"/></radialGradient><radialGradient id="glow3" cx="50%" cy="50%"><stop offset="0%" style="stop-color:%23ec4899;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%23ec4899;stop-opacity:0"/></radialGradient></defs><circle cx="150" cy="200" r="180" fill="url(%23glow1)"/><circle cx="900" cy="150" r="220" fill="url(%23glow2)"/><circle cx="1000" cy="600" r="200" fill="url(%23glow3)"/><circle cx="300" cy="650" r="150" fill="url(%23glow1)"/></svg>');
+            opacity: 0.8;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><g opacity="0.03"><circle cx="100" cy="100" r="2" fill="white"/><circle cx="300" cy="200" r="1.5" fill="white"/><circle cx="500" cy="150" r="1" fill="white"/><circle cx="700" cy="300" r="2" fill="white"/><circle cx="900" cy="250" r="1.5" fill="white"/><circle cx="1100" cy="400" r="1" fill="white"/><circle cx="200" cy="500" r="2" fill="white"/><circle cx="400" cy="600" r="1.5" fill="white"/><circle cx="600" cy="550" r="1" fill="white"/><circle cx="800" cy="700" r="2" fill="white"/><circle cx="1000" cy="650" r="1.5" fill="white"/><circle cx="150" cy="350" r="1" fill="white"/><circle cx="350" cy="450" r="2" fill="white"/><circle cx="550" cy="400" r="1.5" fill="white"/><circle cx="750" cy="500" r="1" fill="white"/><circle cx="950" cy="450" r="2" fill="white"/></g></svg>');
+            opacity: 0.4;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(-5px) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(-1deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 32px;
+            line-height: 1.2;
+        }
+        
+        .transform-text {
+            display: inline-block;
+            animation: transformWiggle 0.6s ease-in-out;
+        }
+        
+        @keyframes transformWiggle {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-3px) rotate(-2deg); }
+            75% { transform: translateX(3px) rotate(2deg); }
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 60px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero .description {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-cta {
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+        
+        .hero-cta:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .hero-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .extension-preview {
+            max-width: 700px;
+            margin: 0 auto 80px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto 60px;
+            max-width: 700px;
+        }
+        
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            background: var(--gradient-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .memory-stat {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+            max-width: 700px;
+            line-height: 1.5;
+            position: relative;
+            text-align: center;
+        }
+        
+        .scribble-underline {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .scribble-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M0,6 Q12.5,2 25,6 T50,6 T75,6 T100,6" fill="none" stroke="%23ec4899" stroke-width="2.5" stroke-linecap="round"/></svg>') no-repeat;
+            background-size: 100% 12px;
+        }
+        
+        /* Consistent Pink Underline */
+        .scribble-underline.problem,
+        .scribble-underline.feature,
+        .scribble-underline.productivity,
+        .scribble-underline.potential {
+            color: var(--accent-color);
+        }
+        
+        .scribble-underline.problem::after,
+        .scribble-underline.feature::after,
+        .scribble-underline.productivity::after,
+        .scribble-underline.potential::after {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M0,6 Q12.5,2 25,6 T50,6 T75,6 T100,6" fill="none" stroke="%23ec4899" stroke-width="2.5" stroke-linecap="round"/></svg>') no-repeat;
+            background-size: 100% 12px;
+        }
+        
+        .extension-preview-placeholder {
+            background: url('assets/browser_bg@2x.png') no-repeat center center;
+            background-size: contain;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+        }
+        
+        .extension-preview-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .extension-preview-placeholder img:hover {
+            transform: translateY(-5px) scale(1.02);
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4));
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+        
+        .stat {
+            text-align: center;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            border-radius: 12px;
+            padding: 20px 16px;
+            box-shadow: 
+                0 4px 12px rgba(217, 119, 6, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 180px;
+            flex-shrink: 0;
+            border: 1px solid rgba(217, 119, 6, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+        
+        .stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(217, 119, 6, 0.4),
+                0 3px 10px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 50%, #f59e0b 100%);
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #78350f;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .star-rating {
+            width: 24px;
+            height: 24px;
+            margin-left: 6px;
+            vertical-align: baseline;
+            transform: translateY(-2px);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            display: inline-block;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--light-gray);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            transform: translateZ(0);
+            will-change: scroll-position;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.02) 0%, rgba(139, 92, 246, 0.02) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            will-change: opacity;
+        }
+        
+        .feature-card:hover {
+            transform: translate3d(0, -8px, 0);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(236, 72, 153, 0.2);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale3d(1.05, 1.05, 1) rotate(3deg);
+        }
+        
+        .feature-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-title {
+            color: var(--accent-color);
+        }
+        
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background: white;
+        }
+        
+
+        
+
+        
+        .benefits-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .benefits-left h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-dark);
+        }
+        
+        .benefits-intro {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        
+        .benefits-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr auto 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .benefits-separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .benefits-arrow {
+            width: 60px;
+            height: auto;
+            opacity: 0.7;
+        }
+        
+        .benefits-gif-column {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .benefits-gif-column .benefit-gif-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .benefit-card-gif {
+            width: 85%;
+            height: auto;
+            border-radius: 0;
+            max-height: 400px;
+            object-fit: contain;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .benefits-header {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .benefits-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .benefits-arrow {
+                width: 40px;
+                transform: rotate(90deg);
+            }
+            
+            .benefit-card-gif {
+                width: 90%;
+                max-height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .benefits-left h2 {
+                font-size: 2rem;
+            }
+            
+            .benefits-intro {
+                font-size: 1rem;
+            }
+            
+            .benefit-card {
+                padding: 20px;
+            }
+            
+            .benefit-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .benefit-card p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        
+        .benefit-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-secondary) 50%, var(--dark-tertiary) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .cta-text {
+            text-align: left;
+        }
+        
+        .cta-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cta-image-placeholder {
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .cta-image-placeholder img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .cta-image-placeholder img:hover {
+            transform: translateY(-5px) scale(1.02);
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4));
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="c" cx="50%" cy="50%"><stop offset="0%" style="stop-color:%23ec4899;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%23ec4899;stop-opacity:0"/></radialGradient></defs><circle cx="500" cy="500" r="400" fill="url(%23c)"/></svg>');
+            opacity: 0.4;
+        }
+        
+        .cta-section h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+            margin-top: 30px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-secondary) 100%);
+            color: white;
+            padding: 60px 0 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--dark-tertiary);
+            padding-top: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+        
+        .footer-cta-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 50%, #e53e3e 100%);
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+        
+        .footer-cta-button:link,
+        .footer-cta-button:visited,
+        .footer-cta-button:active {
+            color: white !important;
+        }
+        
+        .footer-cta-button:hover {
+            background: linear-gradient(135deg, #ff8a80 0%, #ff6b6b 50%, #ff5252 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+            color: #fdf2f8 !important;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .hero-cta, .hero-secondary {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
+            .stat {
+                width: 220px;
+                padding: 20px 16px;
+                flex-shrink: 0;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .benefits-overlay {
+                width: 100px;
+            }
+            
+            .benefits-visual {
+                padding: 40px 20px;
+                text-align: center;
+            }
+            
+            .extension-preview {
+                margin: 0 auto 30px;
+            }
+            
+            .extension-preview-placeholder {
+                padding: 0;
+            }
+            
+            .memory-stat {
+                font-size: 1.1rem;
+            }
+            
+            .cta-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .cta-text {
+                text-align: center;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .nav {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .header-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+                z-index: 1001;
+                position: relative;
+            }
+            
+            .mobile-menu {
+                display: block !important;
+            }
+            
+            .mobile-menu-backdrop {
+                display: block !important;
+            }
+            
+            .mobile-menu {
+                width: 100% !important;
+                max-width: 100% !important;
+                right: 0 !important;
+            }
+            
+            .header {
+                position: relative;
+            }
+            
+            .hero {
+                padding: 60px 0 40px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Performance optimizations */
+        .features {
+            contain: layout style;
+            transform: translateZ(0);
+        }
+        
+        .features-grid * {
+            backface-visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <img src="assets/tabboard-icon-48.png" alt="TabBoard Logo">
+                </div>
+                TabBoard
+            </a>
+            <div class="header-buttons">
+                <a href="#download" class="header-btn btn-primary">Get Extension</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Open menu">
+                ☰
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu Backdrop -->
+        <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-header-content">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">
+                            <img src="assets/tabboard-icon-48.png" alt="TabBoard Logo">
+                        </div>
+                        TabBoard
+                    </a>
+                    <span class="mobile-menu-title">• Menu</span>
+                </div>
+                <button class="mobile-menu-close" aria-label="Close menu" title="Close Menu">
+                    ✕
+                </button>
+            </div>
+            
+            <div class="mobile-menu-content">
+                <a href="#download" class="mobile-menu-cta">Get Extension</a>
+                
+                <a href="https://ko-fi.com/bucklemeshoe" class="mobile-menu-tip">
+                    <span>❤️</span> Tip the Creator
+                </a>
+                
+                <div class="mobile-menu-divider"></div>
+                
+                <div class="mobile-menu-section">
+                    <h3>Extension</h3>
+                    <div class="mobile-menu-links">
+                        <a href="#" class="mobile-menu-link">Chrome Web Store</a>
+                        <a href="#" class="mobile-menu-link">Documentation</a>
+                        <a href="#" class="mobile-menu-link">Support</a>
+                    </div>
+                </div>
+                
+                <div class="mobile-menu-section">
+                    <h3>Resources</h3>
+                    <div class="mobile-menu-links">
+                        <a href="#" class="mobile-menu-link">Privacy Policy</a>
+                        <a href="#" class="mobile-menu-link">Contact</a>
+                        <a href="#" class="mobile-menu-link">Updates</a>
+                    </div>
+                </div>
+                
+                <div class="mobile-menu-section">
+                    <h3>Community</h3>
+                    <div class="mobile-menu-links">
+                        <a href="#" class="mobile-menu-link">GitHub</a>
+                        <a href="#" class="mobile-menu-link">Feedback</a>
+                        <a href="#" class="mobile-menu-link">Feature Requests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1><span class="transform-text">Transform</span> Your<br>Browsing Workflow</h1>
+            <p class="subtitle">Advanced Tab Session Manager for Chrome</p>
+            
+            <div class="extension-preview">
+                <div class="extension-preview-placeholder">
+                    <img src="assets/extension_image_preview@2x.png" alt="TabBoard Extension Interface">
+                </div>
+            </div>
+            
+            <div class="testimonial-container">
+                <div class="profile-picture">
+                    <img src="assets/big-mouth_bucklemeshoe_avatar 2.PNG" alt="User Profile" class="profile-image">
+                </div>
+                <p class="memory-stat">"8GB+ Memory Freed" - Like Doubling Your Computer's Power. No more <span class="scribble-underline problem">frozen browsers</span>, <span class="scribble-underline problem">sluggish switching</span>, or waiting for <span class="scribble-underline problem">unresponsive tabs to load</span>.</p>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="#download" class="hero-cta">
+                    Get Extension
+                </a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Privacy Focused</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0$</div>
+                    <div class="stat-label">Completely Free</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5 <img src="assets/star@2x.png" alt="out of 5 stars" class="star-rating"></div>
+                    <div class="stat-label">User Rated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+                            <div class="section-header">
+                <h2 class="section-title">Powerful <span class="scribble-underline feature">Features</span></h2>
+                <p class="section-subtitle">Everything you need to master tab management and boost your productivity</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">S</div>
+                    <h3 class="feature-title">Smart Session Saving</h3>
+                    <p class="feature-description">Instantly capture all open tabs into organized project sessions with one click. Name them, categorize them, and never lose your research flow again. Perfect for developers juggling multiple projects, researchers managing complex topics, and multitaskers who need to stay organized.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">R</div>
+                    <h3 class="feature-title">Lightning-Fast Restoration</h3>
+                    <p class="feature-description">Restore entire workspaces in milliseconds with a single click. Open sessions in new windows to maintain perfect context separation, or merge them with existing tabs. Your workflow stays uninterrupted, and your productivity soars.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">O</div>
+                    <h3 class="feature-title">Advanced Organization</h3>
+                    <p class="feature-description">Create custom boards to categorize your projects by work, personal, client, or any system that fits your workflow. Drag and drop to reorganize, color-code your sessions, and keep everything exactly where you expect it to be.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">B</div>
+                    <h3 class="feature-title">Backup & Sync</h3>
+                    <p class="feature-description">Export your sessions as portable JSON files for ultimate flexibility. Share project setups with teammates, backup your work to cloud storage, or sync across multiple devices. Your data, your control, your way.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">U</div>
+                    <h3 class="feature-title">Beautiful User Experience</h3>
+                    <p class="feature-description">Enjoy a sleek, modern interface with dark mode support and smooth animations. Intuitive keyboard shortcuts, accessibility features, and thoughtful design make tab management feel effortless and enjoyable.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">P</div>
+                    <h3 class="feature-title">Privacy & Security</h3>
+                    <p class="feature-description">Your data stays completely local on your device. Zero external servers, no tracking, no analytics, no subscriptions. Your browsing sessions remain private, secure, and under your complete control.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-header">
+                <div class="benefits-left">
+                    <h2>Unleash Your <span class="scribble-underline potential">Digital Potential</span></h2>
+                    <p class="benefits-intro">Break free from tab chaos and discover a new level of browsing mastery. TabBoard transforms how you work, learn, and explore online.</p>
+                </div>
+                <div class="benefits-right">
+                    <!-- Right column available for future content -->
+                </div>
+            </div>
+            
+            <div class="benefits-wrapper">
+                <div class="benefits-grid-container">
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">🧠</div>
+                            <h3>Mental Clarity</h3>
+                            <p>Clear your mind and focus on what matters. Organized tabs = organized thoughts.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">⚡</div>
+                            <h3>Lightning Fast</h3>
+                            <p>Switch between entire workspaces in milliseconds. No more hunting through dozens of tabs.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">💎</div>
+                            <h3>Premium Experience</h3>
+                            <p>Enjoy a smooth, intuitive interface designed for people who value efficiency.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">🚀</div>
+                            <h3>Productivity Boost</h3>
+                            <p>Save hours every week with instant context switching. Your future self will thank you.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="benefits-separator">
+                    <img src="assets/>=.png" alt="Arrow Separator" class="benefits-arrow">
+                </div>
+                <div class="benefits-gif-column">
+                    <div class="benefit-gif-container">
+                        <img src="assets/zach_number_meme.gif" alt="TabBoard Benefits" class="benefit-card-gif">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="download">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-text">
+                    <h2>Ready to Transform Your <span class="scribble-underline productivity">Workflow</span>?</h2>
+                    <p>Join thousands of users who have already boosted their productivity with TabBoard. Get started for free today!</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="https://chrome.google.com/webstore/detail/tabboard/[YOUR-EXTENSION-ID]" class="btn-primary">
+                            Get Extension
+                        </a>
+                    </div>
+                </div>
+                <div class="cta-visual">
+                    <div class="cta-image-placeholder">
+                        <img src="assets/extension_image_preview@2x.png" alt="TabBoard Extension Preview">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TabBoard</h3>
+                    <p>Advanced tab session manager for Chrome. Built for productivity, designed for privacy.</p>
+                    <a href="https://ko-fi.com/bucklemeshoe" class="footer-cta-button">
+                        <span>❤️</span> Tip the Creator
+                    </a>
+                </div>
+                <div class="footer-section">
+                    <h3>Extension</h3>
+                    <p><a href="#">Chrome Web Store</a></p>
+                    <p><a href="#">Documentation</a></p>
+                    <p><a href="#">Support</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Contact</a></p>
+                    <p><a href="#">Updates</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <p><a href="#">GitHub</a></p>
+                    <p><a href="#">Feedback</a></p>
+                    <p><a href="#">Feature Requests</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TabBoard. Built for people who need better tab management.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing mobile menu');
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+            
+            console.log('Elements found:', {
+                toggle: !!mobileMenuToggle,
+                close: !!mobileMenuClose,
+                menu: !!mobileMenu,
+                backdrop: !!mobileMenuBackdrop
+            });
+            
+            function openMobileMenu() {
+                console.log('Opening mobile menu');
+                if (mobileMenu && mobileMenuBackdrop) {
+                    mobileMenu.classList.add('active');
+                    mobileMenuBackdrop.classList.add('active');
+                    document.body.classList.add('mobile-menu-open');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+            
+            function closeMobileMenu() {
+                console.log('Closing mobile menu');
+                if (mobileMenu && mobileMenuBackdrop) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBackdrop.classList.remove('active');
+                    document.body.classList.remove('mobile-menu-open');
+                    document.body.style.overflow = '';
+                }
+            }
+            
+            // Add click event to hamburger button
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Hamburger clicked');
+                    openMobileMenu();
+                });
+                
+                // Also add touch event for mobile devices
+                mobileMenuToggle.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Hamburger touched');
+                    openMobileMenu();
+                });
+                
+                console.log('Mobile menu toggle listeners attached');
+            } else {
+                console.log('Mobile menu toggle not found');
+            }
+            
+            // Add click event to close button
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Close button clicked');
+                    closeMobileMenu();
+                });
+                
+                // Also add touch event for mobile devices
+                mobileMenuClose.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Close button touched');
+                    closeMobileMenu();
+                });
+                
+                console.log('Mobile menu close listeners attached');
+            }
+            
+            // Close mobile menu when clicking on backdrop
+            if (mobileMenuBackdrop) {
+                mobileMenuBackdrop.addEventListener('click', function(e) {
+                    if (e.target === mobileMenuBackdrop) {
+                        closeMobileMenu();
+                    }
+                });
+            }
+            
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('.mobile-menu-link, .mobile-menu-cta').forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+            
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
