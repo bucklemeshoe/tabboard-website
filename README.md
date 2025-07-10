@@ -1,35 +1,39 @@
 # TabBoard Website
 
-🚀 **The official website for TabBoard - Advanced Tab Session Manager for Chrome**
+This directory contains the promotional landing page for TabBoard.
 
-Transform your browsing workflow with TabBoard's powerful tab management features.
+## Structure
 
-## 🌟 Features
+```
+website/
+├── index.html              # Main landing page
+├── assets/                 # Website assets
+│   ├── browser_bg@2x.png  # Browser frame background
+│   ├── extension_image_preview@2x.png  # Extension interface screenshot
+│   └── logo_icon_white.png # TabBoard logo (white version)
+└── README.md              # This file
+```
 
-- **Smart Session Saving** - Instantly capture all open tabs into organized project sessions
-- **Lightning-Fast Restoration** - Restore entire workspaces in milliseconds
-- **Advanced Organization** - Create custom boards for different projects
-- **Backup & Sync** - Export sessions as portable JSON files
-- **Beautiful UX** - Sleek interface with dark mode support
-- **Privacy First** - Your data stays completely local
+## Development
 
-## 🔗 Links
+To preview the website locally:
+```bash
+# From the website directory
+open index.html
+# Or use a local server
+python -m http.server 8000
+```
 
-- **Live Site**: [tabboard.app](https://tabboard.app)
-- **Chrome Extension**: [Chrome Web Store](https://chrome.google.com/webstore/detail/tabboard/)
-- **Support**: Contact via website
+## Deployment
 
-## 🛠️ Tech Stack
+The website is ready for deployment to:
+- GitHub Pages
+- Netlify
+- Vercel
+- Any static hosting service
 
-- **Frontend**: Pure HTML, CSS, JavaScript
-- **Hosting**: Netlify
-- **Domain**: GoDaddy
-- **Deployment**: GitHub → Netlify
+## Assets
 
-## 📝 License
-
-© 2025 TabBoard. All rights reserved.
-
----
-
-Built with ❤️ for people who need better tab management. 
+- **Browser Background**: Used as container for extension preview
+- **Extension Preview**: Screenshot of actual TabBoard interface  
+- **Logo**: White version for dark background header 
