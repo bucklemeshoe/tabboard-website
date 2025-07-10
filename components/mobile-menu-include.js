@@ -440,12 +440,14 @@
             });
         }
         
-        // Close mobile menu when clicking on links
-        document.querySelectorAll('.mobile-menu-link, .mobile-menu-cta').forEach(link => {
-            link.addEventListener('click', function() {
-                closeMobileMenu();
+        // Close mobile menu when clicking on links (only within the mobile menu)
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('.mobile-menu-link, .mobile-menu-cta').forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
             });
-        });
+        }
         
         // Close mobile menu on escape key
         document.addEventListener('keydown', function(e) {
