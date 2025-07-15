@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Component Example</title>
+    
+    <!-- Required CSS variables for the footer component -->
+    <style>
+        :root {
+            --primary-color: #60a5fa;
+            --primary-dark: #2563eb;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #0f172a;
+            --dark-secondary: #1e293b;
+            --dark-tertiary: #334155;
+            --light-gray: #f8fafc;
+            --medium-gray: #64748b;
+            --text-dark: #1f2937;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+        }
+        
+        /* Basic page styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Example content styles */
+        .example-content {
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .example-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+        
+        .example-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        .example-content code {
+            background: var(--light-gray);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary-dark);
+        }
+        
+        .example-section {
+            background: var(--light-gray);
+            padding: 40px 0;
+            margin: 20px 0;
+        }
+        
+        .example-section h2 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        
+        .example-section p {
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="example-content">
+            <h1>Footer Component Example</h1>
+            <p>This page demonstrates how easy it is to use the reusable footer component.</p>
+            <p>Simply include <code>&lt;script src="components/footer-include.js">&lt;/script></code> in your HTML.</p>
+        </div>
+        
+        <div class="example-section">
+            <div class="container">
+                <h2>How it works</h2>
+                <p>The footer component automatically injects the footer HTML and CSS into your page when the script loads.</p>
+                <p>No manual HTML copying or CSS linking required!</p>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <div class="container">
+                <h2>Requirements</h2>
+                <p>Your page just needs to have the required CSS variables defined (like this page does).</p>
+                <p>The footer will automatically appear at the bottom of the page.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Component - Just one line! -->
+    <script src="footer-include.js"></script>
+</body>
+</html> 
