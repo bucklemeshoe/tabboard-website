@@ -80,14 +80,13 @@
         
         /* Header */
         .header {
-            background: rgba(15, 23, 42, 0.95);
+            background: var(--dark-secondary);
             border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
         
         .nav {
@@ -129,43 +128,282 @@
             color: var(--primary-dark);
         }
         
+        /* Mobile Menu Styles - Complete Implementation */
         .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+            font-size: 24px;
             color: var(--text-dark);
+            cursor: pointer;
             padding: 8px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            position: relative;
+            min-width: 40px;
+            min-height: 40px;
+            touch-action: manipulation;
         }
         
         .mobile-menu-toggle:hover {
-            background-color: var(--dark-tertiary);
+            background: var(--dark-tertiary);
+        }
+        
+        .mobile-menu-toggle:active {
+            transform: scale(0.95);
+            background: var(--border-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            background: var(--dark-secondary);
+            z-index: 1000;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Hide hamburger menu when mobile menu is active */
+        body.mobile-menu-open .mobile-menu-toggle {
+            display: none !important;
+        }
+        
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--dark-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-menu-header-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .mobile-menu-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .mobile-menu-close {
+            background: var(--dark-tertiary);
+            border: none;
+            font-size: 18px;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 40px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            touch-action: manipulation;
+        }
+        
+        .mobile-menu-close:hover {
+            background: var(--border-color);
+            transform: scale(0.95);
+        }
+        
+        .mobile-menu-close:active {
+            transform: scale(0.95);
+            background: var(--border-color);
+        }
+        
+        .mobile-menu-content {
+            padding: 20px;
+        }
+        
+        .mobile-menu-section {
+            margin-bottom: 40px;
+        }
+        
+        .mobile-menu-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            border-bottom: 2px solid #efefef;
+            padding-bottom: 8px;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .mobile-menu-link {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .mobile-menu-link:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu-cta {
+            background: var(--secondary-color);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            display: block;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .mobile-menu-cta:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(125, 211, 252, 0.3);
+        }
+        
+        .mobile-menu-tip {
+            background: var(--secondary-color);
+            color: white !important;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .mobile-menu-tip:link,
+        .mobile-menu-tip:visited,
+        .mobile-menu-tip:active {
+            color: white !important;
+        }
+        
+        .mobile-menu-tip:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(125, 211, 252, 0.3);
+            color: white !important;
+        }
+        
+        .mobile-menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 30px 0;
+        }
+        
+        .mobile-menu-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
         }
         
         /* Privacy Policy Content */
         .privacy-hero {
-            background: var(--gradient-1);
-            color: white;
-            padding: 80px 0;
+            background: var(--dark-bg);
+            color: var(--text-dark);
+            padding: 120px 0 80px;
             text-align: center;
             position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .privacy-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         .privacy-hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
             font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
         
         .privacy-hero p {
             font-size: 1.25rem;
-            opacity: 0.9;
+            color: var(--text-light);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+        }
+        
+        .privacy-hero-badge {
+            display: inline-block;
+            background: var(--dark-secondary);
+            color: var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
         }
         
         .privacy-content {
@@ -262,8 +500,16 @@
         }
         
         @media (max-width: 768px) {
+            .privacy-hero {
+                padding: 80px 0 60px;
+            }
+            
             .privacy-hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .privacy-hero p {
+                font-size: 1.125rem;
             }
             
             .privacy-document {
@@ -321,10 +567,57 @@
         
         <!-- Mobile Menu Backdrop -->
         <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-header-content">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <img src="assets/tabboard-icon-48.png" alt="TabBoard Logo">
+                        </div>
+                        TabBoard
+                    </a>
+                    <span class="mobile-menu-title">• Menu</span>
+                </div>
+                <button class="mobile-menu-close" aria-label="Close menu" title="Close Menu">
+                    ✕
+                </button>
+            </div>
+            
+            <div class="mobile-menu-content">
+                <a href="https://chrome.google.com/webstore/detail/tabboard/" class="mobile-menu-cta">Get Extension</a>
+                
+                <a href="https://ko-fi.com/bucklemeshoe" class="mobile-menu-tip">
+                    <span>❤️</span> Tip the Creator
+                </a>
+                
+                <div class="mobile-menu-divider"></div>
+                
+                <div class="mobile-menu-section">
+                    <h3>Navigation</h3>
+                    <div class="mobile-menu-links">
+                        <a href="index.html" class="mobile-menu-link">Home</a>
+                        <a href="documentation.html" class="mobile-menu-link">Documentation</a>
+                        <a href="support.html" class="mobile-menu-link">Support</a>
+                        <a href="contact.html" class="mobile-menu-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="mobile-menu-section">
+                    <h3>Community</h3>
+                    <div class="mobile-menu-links">
+                        <a href="https://github.com/bucklemeshoe/tabboard-website" class="mobile-menu-link">GitHub</a>
+                        <a href="feature-requests.html" class="mobile-menu-link">Feature Requests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
     <section class="privacy-hero">
         <div class="container">
+            <div class="privacy-hero-badge">🔒 Privacy Policy</div>
             <h1>Privacy Policy</h1>
             <p>Your privacy is important to us. Learn how TabBoard handles your data.</p>
         </div>
