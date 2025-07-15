@@ -93,6 +93,22 @@
             color: var(--primary-dark);
         }
         
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .mobile-menu-toggle:hover {
+            background-color: var(--light-gray);
+        }
+        
         /* Privacy Policy Content */
         .privacy-hero {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
@@ -226,6 +242,14 @@
             .nav-links {
                 display: none;
             }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
         }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067032784904757"
@@ -246,7 +270,13 @@
                 <a href="support.html">Support</a>
                 <a href="contact.html">Contact</a>
             </div>
+            <button class="mobile-menu-toggle" aria-label="Open menu">
+                ☰
+            </button>
         </nav>
+        
+        <!-- Mobile Menu Backdrop -->
+        <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
     </header>
 
     <section class="privacy-hero">
