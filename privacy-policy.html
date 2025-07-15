@@ -14,28 +14,29 @@
     
     <style>
         :root {
-            /* TabBoard's Color Scheme */
-            --primary-color: #60a5fa;        /* TabBoard's light blue */
-            --primary-dark: #2563eb;         /* TabBoard's blue */
-            --secondary-color: #8b5cf6;      /* TabBoard's purple */
-            --accent-color: #ec4899;         /* TabBoard's pink */
-            --success-color: #10b981;        /* TabBoard's green */
-            --warning-color: #f59e0b;        /* TabBoard's amber */
-            --danger-color: #ef4444;         /* TabBoard's red */
-            --dark-bg: #0f172a;             /* TabBoard's dark primary */
-            --dark-secondary: #1e293b;       /* TabBoard's dark secondary */
-            --dark-tertiary: #334155;        /* TabBoard's dark tertiary */
-            --light-gray: #f8fafc;           /* TabBoard's light secondary */
-            --medium-gray: #64748b;          /* TabBoard's medium gray */
-            --text-dark: #1f2937;            /* TabBoard's text */
-            --text-light: #64748b;           /* TabBoard's muted text */
-            --border-color: #e2e8f0;         /* TabBoard's border */
-            --gradient-1: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);  /* Blue gradient */
-            --gradient-2: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);  /* Pink-Purple gradient */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            /* Syntax Theme - Dark Privacy Colors */
+            --primary-color: #7dd3fc;        /* sky-300 */
+            --primary-dark: #0ea5e9;         /* sky-500 */
+            --secondary-color: #6366f1;      /* indigo-500 */
+            --accent-color: #06b6d4;         /* cyan-500 */
+            --success-color: #10b981;        /* emerald-500 */
+            --warning-color: #f59e0b;        /* amber-500 */
+            --danger-color: #ef4444;         /* red-500 */
+            --dark-bg: #0f172a;             /* slate-900 */
+            --dark-secondary: #1e293b;       /* slate-800 */
+            --dark-tertiary: #334155;        /* slate-700 */
+            --light-gray: #f1f5f9;           /* slate-100 */
+            --medium-gray: #64748b;          /* slate-500 */
+            --text-dark: #f8fafc;            /* slate-50 - inverted for dark theme */
+            --text-light: #cbd5e1;           /* slate-300 */
+            --text-muted: #64748b;           /* slate-500 */
+            --border-color: #334155;         /* slate-700 */
+            --gradient-1: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);  /* Sky gradient */
+            --gradient-2: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);  /* Cyan-Indigo gradient */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
         
         * {
@@ -48,7 +49,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
-            background: var(--light-gray);
+            background: var(--dark-bg);
             overflow-x: hidden;
         }
         
@@ -79,7 +80,7 @@
         
         /* Header */
         .header {
-            background: white;
+            background: rgba(15, 23, 42, 0.95);
             border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
             position: sticky;
@@ -141,15 +142,16 @@
         }
         
         .mobile-menu-toggle:hover {
-            background-color: var(--light-gray);
+            background-color: var(--dark-tertiary);
         }
         
         /* Privacy Policy Content */
         .privacy-hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            background: var(--gradient-1);
             color: white;
             padding: 80px 0;
             text-align: center;
+            position: relative;
         }
         
         .privacy-hero h1 {
@@ -171,12 +173,13 @@
         }
         
         .privacy-document {
-            background: white;
+            background: var(--dark-secondary);
             border-radius: 12px;
             padding: 60px;
             box-shadow: var(--shadow-md);
             max-width: 900px;
             margin: 0 auto;
+            border: 1px solid var(--border-color);
         }
         
         .privacy-document h2 {
@@ -219,11 +222,12 @@
         }
         
         .contact-section {
-            background: linear-gradient(135deg, var(--light-gray) 0%, white 100%);
+            background: var(--dark-tertiary);
             border-radius: 12px;
             padding: 30px;
             margin-top: 40px;
             border-left: 4px solid var(--accent-color);
+            border: 1px solid var(--border-color);
         }
         
         .contact-section h3 {
@@ -232,7 +236,7 @@
         }
         
         .contact-section a {
-            color: var(--primary-dark);
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
         }
