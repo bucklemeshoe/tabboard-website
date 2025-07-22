@@ -437,6 +437,53 @@
                 display: none;
             }
         }
+        
+        .contact-info-section {
+            background: var(--dark-secondary);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .contact-info-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .contact-info-section p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .email-contact {
+            background: var(--dark-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .email-contact h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .email-contact p {
+            margin-bottom: 10px;
+        }
+        
+        .email-contact strong {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067032784904757"
          crossorigin="anonymous"></script>
@@ -454,7 +501,6 @@
                 <a href="index.html">Home</a>
                 <a href="documentation.html">Documentation</a>
                 <a href="support.html">Support</a>
-                <a href="contact.html">Contact</a>
             </div>
         </nav>
     </header>
@@ -609,10 +655,14 @@
                 </div>
             </div>
             
-            <div class="contact-cta">
-                <h3>Still Need Help?</h3>
-                <p>Can't find the answer you're looking for? Our support team is here to help!</p>
-                <a href="contact.html" class="btn">Contact Support</a>
+            <div class="contact-info-section">
+                <h2>Get in Touch</h2>
+                <p>Have questions, feedback, or need support? We're here to help!</p>
+                <div class="email-contact">
+                    <h3>Email Support</h3>
+                    <p><strong>apps@makefriendly.co.za</strong></p>
+                    <p>We respond to all inquiries within 24-48 hours.</p>
+                </div>
             </div>
         </div>
     </section>

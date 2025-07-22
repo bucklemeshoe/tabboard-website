@@ -22,7 +22,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 40px;
             margin-bottom: 60px;
             text-align: left;
@@ -38,6 +38,10 @@
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
             margin-bottom: 8px;
+        }
+
+        .footer-section:first-child p {
+            max-width: 400px;
         }
 
         .footer-section a {
@@ -118,6 +122,11 @@
                 gap: 30px;
             }
             
+            .footer-section:first-child p {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
             .footer-bottom {
                 flex-direction: column;
                 gap: 12px;
@@ -142,18 +151,9 @@
                         <h3>Extension</h3>
                         <p><a href="https://chrome.google.com/webstore/detail/tabboard/">Chrome Web Store</a></p>
                         <p><a href="documentation.html">Documentation</a></p>
+                        <p><a href="privacy-policy.html">Privacy Policy</a></p>
                         <p><a href="support.html">Support</a></p>
                     </div>
-                    <div class="footer-section">
-                        <h3>Resources</h3>
-                        <p><a href="privacy-policy.html">Privacy Policy</a></p>
-                        <p><a href="contact.html">Contact</a></p>
-                    </div>
-                                         <div class="footer-section">
-                         <h3>Community</h3>
-                         <p><a href="https://github.com/bucklemeshoe/tabboard-website">GitHub</a></p>
-                         <p><a href="feature-requests.html">Feature Requests</a></p>
-                     </div>
                 </div>
                 
                 <div class="footer-bottom">

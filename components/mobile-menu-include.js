@@ -46,12 +46,12 @@
         }
 
         .mobile-menu-toggle:hover {
-            background: var(--light-gray);
+            background: var(--dark-secondary);
         }
 
         .mobile-menu-toggle:active {
             transform: scale(0.95);
-            background: var(--border-color);
+            background: var(--dark-tertiary);
         }
 
 
@@ -64,7 +64,7 @@
             width: 100%;
             max-width: 100%;
             height: 100vh;
-            background: white;
+            background: var(--dark-bg);
             z-index: 1000;
             overflow-y: auto;
             transform: translateX(100%);
@@ -87,7 +87,7 @@
             align-items: center;
             padding: 15px 20px;
             border-bottom: 1px solid var(--border-color);
-            background: white;
+            background: var(--dark-secondary);
             position: sticky;
             top: 0;
             z-index: 1001;
@@ -110,7 +110,7 @@
         }
 
         .mobile-menu-close {
-            background: var(--light-gray);
+            background: var(--dark-tertiary);
             border: none;
             font-size: 18px;
             color: var(--text-dark);
@@ -128,13 +128,13 @@
         }
 
         .mobile-menu-close:hover {
-            background: var(--border-color);
+            background: var(--dark-bg);
             transform: scale(0.95);
         }
 
         .mobile-menu-close:active {
             transform: scale(0.95);
-            background: var(--border-color);
+            background: var(--dark-bg);
         }
 
         .mobile-menu-content {
@@ -150,7 +150,7 @@
             font-weight: 600;
             margin-bottom: 16px;
             color: var(--text-dark);
-            border-bottom: 2px solid #efefef;
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 8px;
         }
 
@@ -309,7 +309,7 @@
             </div>
             
             <div class="mobile-menu-content">
-                <a href="https://chrome.google.com/webstore/detail/tabboard/" class="mobile-menu-cta">Get Extension</a>
+                <a href="#download" class="mobile-menu-cta">Get Extension</a>
                 
                 <a href="https://ko-fi.com/bucklemeshoe" class="mobile-menu-tip">
                     <span>❤️</span> Tip the Creator
@@ -322,27 +322,12 @@
                     <div class="mobile-menu-links">
                         <a href="https://chrome.google.com/webstore/detail/tabboard/" class="mobile-menu-link">Chrome Web Store</a>
                         <a href="documentation.html" class="mobile-menu-link">Documentation</a>
+                        <a href="privacy-policy.html" class="mobile-menu-link">Privacy Policy</a>
                         <a href="support.html" class="mobile-menu-link">Support</a>
                     </div>
                 </div>
                 
-                <div class="mobile-menu-section">
-                    <h3>Resources</h3>
-                    <div class="mobile-menu-links">
-                        <a href="privacy-policy.html" class="mobile-menu-link">Privacy Policy</a>
-                        <a href="contact.html" class="mobile-menu-link">Contact</a>
-                        <a href="#" class="mobile-menu-link">Updates</a>
-                    </div>
-                </div>
-                
-                <div class="mobile-menu-section">
-                    <h3>Community</h3>
-                    <div class="mobile-menu-links">
-                        <a href="https://github.com/bucklemeshoe/tabboard-website" class="mobile-menu-link">GitHub</a>
-                        <a href="contact.html" class="mobile-menu-link">Feedback</a>
-                        <a href="feature-requests.html" class="mobile-menu-link">Feature Requests</a>
-                    </div>
-                </div>
+
             </div>
         </div>
     `;

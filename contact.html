@@ -315,7 +315,7 @@
             font-size: 14px;
         }
         
-        .github-section {
+        .contact-info-section {
             background: var(--dark-secondary);
             border-radius: 12px;
             padding: 40px;
@@ -325,7 +325,7 @@
             text-align: center;
         }
         
-        .github-section h2 {
+        .contact-info-section h2 {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 20px;
@@ -333,39 +333,33 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        .github-section p {
+        .contact-info-section p {
             color: var(--text-light);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
-        .github-btn {
+        .email-contact {
             background: var(--dark-tertiary);
-            color: var(--text-dark);
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
             border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
         }
         
-        .github-btn:hover {
-            background: var(--primary-dark);
-            color: white;
-            border-color: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
+        .email-contact h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
         }
         
-        .github-icon {
-            width: 20px;
-            height: 20px;
-            filter: brightness(0) invert(1);
-            vertical-align: middle;
+        .email-contact p {
+            margin-bottom: 10px;
+        }
+        
+        .email-contact strong {
+            color: var(--primary-color);
+            font-size: 1.2rem;
             margin-right: 8px;
         }
         
@@ -516,12 +510,14 @@
                 </div>
             </div>
             
-            <div class="github-section">
-                <h2>Open Source</h2>
-                <p>TabBoard is open source! You can view the code, report issues, or contribute to the project on GitHub.</p>
-                <a href="https://github.com/bucklemeshoe/tabboard-website" class="github-btn">
-                    <img src="assets/github_icon.png" alt="GitHub" class="github-icon"> View on GitHub
-                </a>
+            <div class="contact-info-section">
+                <h2>Get in Touch</h2>
+                <p>Have questions, feedback, or need support? We're here to help!</p>
+                <div class="email-contact">
+                    <h3>Email Support</h3>
+                    <p><strong>apps@makefriendly.co.za</strong></p>
+                    <p>We respond to all inquiries within 24-48 hours.</p>
+                </div>
             </div>
         </div>
     </section>
