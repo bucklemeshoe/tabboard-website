@@ -149,7 +149,7 @@
                     </div>
                     <div class="footer-section">
                         <h3>Extension</h3>
-                        <p><a href="https://chrome.google.com/webstore/detail/tabboard/">Chrome Web Store</a></p>
+                        <p><a href="https://chromewebstore.google.com/detail/tabboard/baplniifepinalcdljcnemmpceiggdpm">Chrome Web Store</a></p>
                         <p><a href="documentation.html">Documentation</a></p>
                         <p><a href="privacy-policy.html">Privacy Policy</a></p>
                         <p><a href="support.html">Support</a></p>

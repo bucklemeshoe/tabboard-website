@@ -309,7 +309,7 @@
             </div>
             
             <div class="mobile-menu-content">
-                <a href="#download" class="mobile-menu-cta">Get Extension</a>
+                <a href="https://chromewebstore.google.com/detail/tabboard/baplniifepinalcdljcnemmpceiggdpm" class="mobile-menu-cta">Get Extension</a>
                 
                 <a href="https://ko-fi.com/bucklemeshoe" class="mobile-menu-tip">
                     <span>❤️</span> Tip the Creator
@@ -320,7 +320,7 @@
                 <div class="mobile-menu-section">
                     <h3>Extension</h3>
                     <div class="mobile-menu-links">
-                        <a href="https://chrome.google.com/webstore/detail/tabboard/" class="mobile-menu-link">Chrome Web Store</a>
+                        <a href="https://chromewebstore.google.com/detail/tabboard/baplniifepinalcdljcnemmpceiggdpm" class="mobile-menu-link">Chrome Web Store</a>
                         <a href="documentation.html" class="mobile-menu-link">Documentation</a>
                         <a href="privacy-policy.html" class="mobile-menu-link">Privacy Policy</a>
                         <a href="support.html" class="mobile-menu-link">Support</a>
